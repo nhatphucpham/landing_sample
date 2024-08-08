@@ -1,0 +1,79 @@
+/* datetime-picker.css */
+.react-datepicker-wrapper {
+    @apply relative w-full;
+}
+
+.react-datepicker__view-calendar-icon input {
+  @apply w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 pl-10;
+}
+
+.react-datepicker__calendar-icon {
+  @apply absolute top-0 left-0 m-1 text-gray-400;
+}
+
+.react-datepicker {
+  @apply bg-white border border-gray-800 rounded-lg shadow-sm overflow-hidden text-base;
+}
+
+.react-datepicker__header.react-datepicker__header--has-time-select {
+  @apply rounded-tr-none;
+}
+
+.react-datepicker__header {
+  @apply bg-gray-500 text-white border-b border-gray-800 rounded-t-lg;
+}
+
+.react-datepicker__header .react-datepicker__current-month, 
+.react-datepicker__header .react-datepicker-time__header, 
+.react-datepicker__header .react-datepicker-year-header,
+.react-datepicker__day-name {
+  @apply text-white;
+}
+
+.react-datepicker__time-list {
+  @apply bg-transparent;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  @apply text-gray-800;
+}
+
+.react-datepicker__day,
+.react-datepicker__time-name {
+  @apply text-gray-800;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-gray-800 text-white;
+}
+
+.react-datepicker__day--today {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.react-datepicker__day:hover {
+  @apply bg-gray-500 text-white;
+}
+
+.react-datepicker__time-list-item:hover {
+  @apply bg-gray-500 text-white;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover {
+    @apply bg-gray-500 text-white;
+}
+
+.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
+    @apply bg-gray-800 text-white;
+}
+
+.react-datepicker-popper {
+  @apply w-[26rem];
+}
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+  @apply w-10 leading-10 text-center;
+}

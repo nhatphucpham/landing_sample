@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
 
 @keyframes fadeInDown {
   from {
@@ -48,17 +51,19 @@
 }
 
 .animate-fadeInDown {
-  animation: fadeInDown 1.5s forwards;
+  @apply opacity-0;
+  animation: fadeInDown 0.5s forwards;
 }
 
 .animate-fadeInUp {
-  animation: fadeInUp 1.5s forwards;
+  animation: fadeInUp 0.5s forwards;
 }
 
 .animate-fadeInLeft {
-  animation: fadeInLeft 1.5s forwards;
+  animation: fadeInLeft 0.5s forwards;
 }
 
 .animate-fadeInRight {
-  animation: fadeInRight 1.5s forwards;
+  @apply opacity-0;
+  animation: fadeInRight 0.5s forwards;
 }

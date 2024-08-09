@@ -30,9 +30,9 @@ const Header: React.FC<HeaderProps> = ({ children }: HeaderProps) => {
   return (
     <header className={`fixed z-50 ${!isInitPlace ? 'bg-gray-800/90 shadow-md' : ''} w-full p-6 ${isScrolled && !isInitPlace ? '-top-24' : 'top-0'} transition-all`}>
       <div className="container mx-auto flex justify-between items-center">
-        <div className="logo pl-4">
+        <a href='/#' className="logo pl-4">
           <Image src="/logo.svg" alt="Logo" width={200} height={200} className="w-14 h-14" />
-        </div>
+        </a>
         {children}
       </div>
     </header>

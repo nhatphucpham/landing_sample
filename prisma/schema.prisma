@@ -27,6 +27,7 @@ model Account {
   providerAccountId String
   user              User      @relation(fields: [userId], references: [id])
   type              String?
+  access_token      String?
   @@unique([provider, providerAccountId])
 }
 

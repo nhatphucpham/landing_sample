@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="mx-0 px-0">
       <Hero />
-      <div className="container mx-auto px-4">
+      <div className="mx-auto">
         <CourseIntro />
         <GoalsAndInstructors />
         <RegistrationForm />

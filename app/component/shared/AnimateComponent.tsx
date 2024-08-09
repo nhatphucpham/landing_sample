@@ -7,24 +7,25 @@ export default function AnimateComponent({
   type = 'up',
   className,
   as: Component = 'div',
+  initialAnimation = false,
   ...rest
 }: any): JSX.Element {
   const { ref: scrollableRef, inView: section1InView } = useInView({ triggerOnce: true });
-  let componentClassName = className;
+  let componentClassName = `opacity-0 ${className}`;
 
-  if (section1InView) {
+  if (initialAnimation || section1InView) {
     switch (type) {
       case 'down':
-        componentClassName = (`${className} animate-fadeInDown`);
+        componentClassName = (`opacity-0 ${className} animate-fadeInDown`);
         break;
       case 'up':
-        componentClassName = (`${className} animate-fadeInUp`);
+        componentClassName = (`opacity-0 ${className} animate-fadeInUp`);
         break;
       case 'left':
-        componentClassName = (`${className} animate-fadeInLeft`);
+        componentClassName = (`opacity-0 ${className} animate-fadeInLeft`);
         break;
       case 'right':
-        componentClassName = (`${className} animate-fadeInRight`);
+        componentClassName = (`opacity-0 ${className} animate-fadeInRight`);
         break;
     }
   }

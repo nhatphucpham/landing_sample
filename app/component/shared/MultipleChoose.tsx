@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useForm, Controller, RefCallBack } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,18 +18,18 @@ interface MultipleChooseProps {
   error: any;
 }
 
-const MultipleChoose: React.FC<MultipleChooseProps> = ({
+const MultipleChoose: React.FC<MultipleChooseProps> = React.forwardRef<HTMLElement, MultipleChooseProps>(({
   options,
   onChange,
   label,
   name,
   control,
-  error }) => {
+  error }, ref) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   useEffect(() => {
     onChange({ target: { name, value: selectedOptions.join(',') } });
-  }, [selectedOptions, onChange]);
+  }, [selectedOptions, onChange, name]);
 
   const handleSelect = (id: string) => {
     if (selectedOptions.includes(id)) {
@@ -54,7 +55,7 @@ const MultipleChoose: React.FC<MultipleChooseProps> = ({
   }
 
   return (
-    <div className="p-4 rounded-lg border border-gray-800/15 shadow-sm">
+    <div className="p-4 rounded-lg border border-gray-800/15 shadow-sm" ref={ref as React.RefObject<HTMLDivElement>}>
       <h2 className="text-xl font-bold mb-4">{label}</h2>
       <Controller
         name={name}
@@ -85,6 +86,8 @@ const MultipleChoose: React.FC<MultipleChooseProps> = ({
       <p className="text-red-500">{error?.message}</p>
     </div>
   );
-};
+});
+
+MultipleChoose.displayName = 'MultipleChoose'; 
 
 export default MultipleChoose;

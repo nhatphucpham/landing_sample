@@ -5,10 +5,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { FiUser, FiMail, FiChevronDown, FiPhone } from 'react-icons/fi';
-import AnimateComponent from '@/app/component/AnimateComponent';
+import AnimateComponent from '@/app/component/shared/AnimateComponent';
 import { useRouter } from 'next/navigation';
 import MultipleChoose from './shared/MultipleChoose';
 import DateTimePicker from './shared/DateTimePicker/DateTimePicker';
+import { useNotification } from './shared/Notification';
 
 interface FormValues {
   name: string;
@@ -19,11 +20,11 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Required'),
-  email: Yup.string().email('Invalid email address').required('Required'),
-  phoneNumber: Yup.string().required('Required'),
-  course: Yup.string().required('Required'),
-  dateOfBirth: Yup.date().required('Required'),
+  name: Yup.string().required('Bắt buộc'),
+  email: Yup.string().email('Địa chỉ email không hợp lệ').required('Bắt buộc'),
+  phoneNumber: Yup.string().required('Bắt buộc'),
+  course: Yup.string().required('Bắt buộc'),
+  dateOfBirth: Yup.date().required('Bắt buộc'),
 });
 
 export default function RegistrationForm() {
@@ -38,11 +39,10 @@ export default function RegistrationForm() {
     resolver: yupResolver(validationSchema),
   });
 
-  const handleCourseSelect = (course: string[]) => {
-    console.log('Selected course:', course);
-  };
+  const { loading, success, error, done } = useNotification();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const loadingNoti = loading('Đang gửi biểu mẫu...', { isLoading: true });
     try {
       const response = await fetch('/api/submit', {
         method: 'POST',
@@ -52,24 +52,27 @@ export default function RegistrationForm() {
         body: JSON.stringify(data),
       });
 
+      done(loadingNoti, { isLoading: false });
+
       if (response.ok) {
-        // Handle success
-        console.log('Form submitted successfully');
+        console.log('Đã gửi biểu mẫu thành công');
+        success('Đã gửi biểu mẫu thành công');
         router.push('/thankyou');
       } else {
-        // Handle error
-        console.error('Failed to submit form');
+        console.error('Gửi biểu mẫu không thành công');
+        error('Đã xảy ra lỗi khi gửi biểu mẫu');
       }
-    } catch (error) {
-      console.error('An error occurred while submitting the form', error);
+    } catch (err) {
+      done(loadingNoti, { isLoading: false });
+      console.error('Đã xảy ra lỗi khi gửi biểu mẫu', err);
+      error('Đã xảy ra lỗi khi gửi biểu mẫu');
     }
   };
-  console.log(register('dateOfBirth', { required: true }));
 
   return (
-    <AnimateComponent as="section" className="py-16 px-4 bg-gray-800 text-gray-800 overflow-visible">
+    <AnimateComponent as="section" id="register" className="py-8 px-4 bg-gray-800 text-gray-800 overflow-visible">
       <div className="container mx-auto max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-center mb-8">Register Now</h2>
+        <h2 className="text-3xl font-bold text-center mb-8">Đăng Ký Ngay</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-6 relative">
             <span className="absolute left-3 top-3.5 text-gray-400">
@@ -78,7 +81,7 @@ export default function RegistrationForm() {
             <input
               type="text"
               {...register('name', { required: true })}
-              placeholder="Your Name"
+              placeholder="Họ và Tên"
               className={`pl-10 pr-4 py-2 w-full border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
             />
             <p className="text-red-500 text-sm mt-1">{errors.name?.message}</p>
@@ -90,7 +93,7 @@ export default function RegistrationForm() {
             <input
               type="email"
               {...register('email', { required: true })}
-              placeholder="Your Email"
+              placeholder="Email của bạn"
               className={`pl-10 pr-4 py-2 w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
             />
             <p className="text-red-500 text-sm mt-1">{errors.email?.message}</p>
@@ -110,7 +113,7 @@ export default function RegistrationForm() {
             <input
               type="text"
               {...register('phoneNumber', { required: true })}
-              placeholder="Your Phone Number"
+              placeholder="Số điện thoại của bạn"
               className={`pl-10 pr-4 py-2 w-full border ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all`}
             />
             <p className="text-red-500 text-sm mt-1">{errors.phoneNumber?.message}</p>

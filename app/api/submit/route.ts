@@ -18,9 +18,14 @@ export async function POST(request: Request) {
     Key: objectKey,
   };
 
-  const keys = getCredentials('google-api')
+  let keys = getCredentials('google-api');
 
   if (!keys) {
+    const keyFilePath = path.join(process.cwd(), 'secret/course-online-431610-83503c7bba43.json');
+    keys = JSON.parse(await fs.readFile(keyFilePath, 'utf8'));
+  }
+
+  if(!keys) { 
     return new Response('Failed to get Google credentials', { status: 500 });
   }
 

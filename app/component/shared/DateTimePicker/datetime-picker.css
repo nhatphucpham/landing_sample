@@ -71,7 +71,7 @@
 }
 
 .react-datepicker-popper {
-  @apply w-[26rem];
+  @apply w-[20.5rem] shadow-md;
 }
 
 .react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {

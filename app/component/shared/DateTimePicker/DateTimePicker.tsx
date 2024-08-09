@@ -50,6 +50,7 @@ const   DateTimePicker: React.FC<DateTimeInputProps> = ({ placeholder, classname
       name={name}
       render={({ field }) => (
         <DatePicker
+          autoComplete="off"
           name={name}
           selected={field.value}
           timeFormat="HH:mm"

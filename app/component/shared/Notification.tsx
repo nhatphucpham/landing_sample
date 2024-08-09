@@ -1,7 +1,7 @@
 'use client';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/ReactToastify.min.css';
 
 export default function Notification() {
     return <ToastContainer />;

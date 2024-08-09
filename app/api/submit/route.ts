@@ -1,13 +1,28 @@
 import { google } from 'googleapis';
 import { promises as fs } from 'fs';
 import path from 'path';
+import getCredentials from './getCredentials';
+
+
 
 export async function POST(request: Request) {
+
   const requestBody = await request.json();
   const { name, email, course, phoneNumber, dateOfBirth } = requestBody;
 
-  const keyFilePath = path.join(process.cwd(), 'secret/course-online-431610-83503c7bba43.json');
-  const keys = JSON.parse(await fs.readFile(keyFilePath, 'utf8'));
+  const bucketName = process.env.AWS_GOOGLE_CREDENTIALS_BUCKET_NAME;
+  const objectKey = process.env.AWS_GOOGLE_CREDENTIALS_OBJECT_KEY;
+
+  const params = {
+    Bucket: bucketName,
+    Key: objectKey,
+  };
+
+  const keys = getCredentials('google-api')
+
+  if (!keys) {
+    return new Response('Failed to get Google credentials', { status: 500 });
+  }
 
   const auth = new google.auth.GoogleAuth({
     credentials: keys,

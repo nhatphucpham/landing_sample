@@ -1,3 +1,4 @@
+import React from "react";
 import { useForm, Controller, Noop, RefCallBack } from "react-hook-form";
 
 import DatePicker from 'react-datepicker';
@@ -13,7 +14,7 @@ interface DateTimeInputProps {
   control: any;
 }
 
-const   DateTimePicker: React.FC<DateTimeInputProps> = ({ placeholder, classname, control, name, ...rest }) => {
+const DateTimePicker = React.forwardRef<any, DateTimeInputProps>(({ placeholder, classname, control, name, ...rest }, ref) => {
   const handleChange = (field: {
     onChange: any;
     onBlur?: Noop;
@@ -63,10 +64,13 @@ const   DateTimePicker: React.FC<DateTimeInputProps> = ({ placeholder, classname
           {...rest}
           onChange={handleChange(field)}
           onBlur={handleBlur(field)}
+          ref={ref}
         />
       )}
     />
   );
-};
+});
+
+DateTimePicker.displayName = 'DateTimePicker';
 
 export default DateTimePicker;

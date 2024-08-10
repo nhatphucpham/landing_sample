@@ -1,0 +1,19 @@
+.menu-list a{
+    @apply text-white hover:bg-white hover:text-gray-800 h-10 py-2 m-0;
+}
+
+.menu-button .active {
+    @apply hidden;
+}
+
+.menu-button .rest {
+    @apply block;
+}
+
+.menu-button:hover .active {
+    @apply block;
+}
+
+.menu-button:hover .rest {
+    @apply hidden;
+}

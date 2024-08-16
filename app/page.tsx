@@ -2,18 +2,20 @@ import Hero from "@/app/component/Hero";
 import CourseIntro from "@/app/component/CourseIntro";
 import GoalsAndInstructors from "@/app/component/GoalsAndInstructors";
 import RegistrationForm from "@/app/component/RegistrationForm";
-import Cost from "@/app/component/Cost";
+import OtherSection from "@/app/component/OtherSection";
+import { getLandingContents } from "./data";
 
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: any }) {
+  const [hero, intro, goal, instructor, ...other] = await getLandingContents();
 
   return (
     <div className="mx-0 px-0">
-      <Hero />
+      <Hero data={hero} />
       <div className="mx-auto">
-        <CourseIntro />
-        <GoalsAndInstructors />
+        <CourseIntro data={intro} />
+        <GoalsAndInstructors data={{ goal, instructor }} />
         <RegistrationForm />
-        <Cost />
+        <OtherSection data={other[0]} />
       </div>
     </div>
   );

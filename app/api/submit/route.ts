@@ -3,20 +3,10 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import getCredentials from './getCredentials';
 
-
-
 export async function POST(request: Request) {
 
   const requestBody = await request.json();
   const { name, email, course, phoneNumber, dateOfBirth } = requestBody;
-
-  const bucketName = process.env.AWS_GOOGLE_CREDENTIALS_BUCKET_NAME;
-  const objectKey = process.env.AWS_GOOGLE_CREDENTIALS_OBJECT_KEY;
-
-  const params = {
-    Bucket: bucketName,
-    Key: objectKey,
-  };
 
   let keys = getCredentials('google-api');
 

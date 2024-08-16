@@ -1,8 +1,8 @@
 // prisma/schema.prisma
 datasource db {
-  provider = "postgresql" // or your database provider
-  url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING") 
+  provider  = "postgresql" // or your database provider
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 generator client {
@@ -10,8 +10,8 @@ generator client {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
+  id            String    @id @default(uuid())
+  email         String    @unique
   name          String?
   password      String?
   image         String?
@@ -21,19 +21,44 @@ model User {
 }
 
 model Account {
-  id                Int       @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   userId            String
   provider          String
   providerAccountId String
-  user              User      @relation(fields: [userId], references: [id])
+  user              User    @relation(fields: [userId], references: [id])
   type              String?
   access_token      String?
+
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+  id           String @id @default(cuid())
+  sessionToken String @unique
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user         User   @relation(fields: [userId], references: [id])
+}
+
+enum content_type {
+  hero
+  intro
+  goal
+  instructor
+  other
+}
+
+model landing_contents {
+  id             Int              @id @default(autoincrement())
+  title          String
+  type           content_type
+  content        String
+  landing_images landing_images[]
+}
+
+model landing_images {
+  id                 Int                @id @default(autoincrement())
+  landing_content    landing_contents   @relation(references: [id], fields: [landing_content_id])
+  image_url          String
+  content            String
+  landing_content_id Int
 }

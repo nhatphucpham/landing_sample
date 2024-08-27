@@ -16,7 +16,7 @@ export default async function Instructors({ className, data }: InstructorsProps)
       <div className="flex flex-wrap justify-center mb-8">
         {
           imageData.map((instructor, index) => (
-            <div key={instructor.imageUrl} className="w-full md:w-1/3 p-4">
+            <div key={instructor.imageUrl} className="w-full lg:w-1/3 p-4 basis-80">
               <Image width={300} height={300} src={instructor.imageUrl} alt={`Giảng viên ${index + 1}`} className="w-full h-64 object-cover rounded-full mb-4" />
               <p className="text-center">{instructor.content}</p>
             </div>

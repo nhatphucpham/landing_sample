@@ -67,3 +67,23 @@ html {
   @apply opacity-0;
   animation: fadeInRight 0.5s forwards;
 }
+
+.hero {
+  background-image: url('/background.jpg');
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/person.png');
+  background-position: top;
+  background-repeat: no-repeat;
+  animation: fadeInRight 0.5s forwards;
+}
